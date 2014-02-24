@@ -78,10 +78,21 @@ Board.prototype.step = function () {
 Board.prototype.run = function () {
 	this.self.trigger("before:run");
 	this.running = true;
-	while (this.running) {
+	this.runloop();
+};
+
+Board.prototype.runloop = function () {
+	if (this.running) {
 		this.step();
 	}
-	this.self.trigger("after:run");
+	if (this.running) {
+		// using setTimeout to ensure that other events get a chance to run.
+		// not sure this a good idea.
+		var me = this;
+		setTimeout(function runlooper () { me.runloop.call(me)}, 0);
+	} else {
+		this.self.trigger("after:run");
+	}
 };
 
 Board.prototype.stop = function () {
