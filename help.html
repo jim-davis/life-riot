@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>Rules for Conway's Game of Life</title>
+</head>
+<body>
+<h1>Conway's Game of Life</h1>
+<p>The board is a grid of cells.  Each cell is either alive (black) or dead (white).  At the start of the game, you can make as many cells alive as you like.  Then you start the game running.  In each turn (or generation) cells may change from live to dead, or dead to live according to these rules
+<ul>
+<li>If a cell is alive:
+<ul>
+<li>If it has zero or no live neighbors, it dies (of loneliness)</li>
+<li>If has two or three live neighbors, it remains alive.</li>
+<li>If it has four or more live neighbors, it dies (of overcrowding).</li>
+</ul>
+<li>Otherwise, a dead cell with exactly three live neighbors becomes alive (birth)</li>
+</ul>
+All these changes happen simultaneously at the end of every generation.
+
+<p>
+Click on cells in the array to toggle state from live to dead.
+Click on <b>one cell at a time</b>
+</p>
+
+<p>
+Click Step to advance one generation, or Run to run continuously.
+</p>
+
+</body>
+</html>

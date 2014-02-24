@@ -1,0 +1,7 @@
+dist
+node_modules
+bower_components
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store

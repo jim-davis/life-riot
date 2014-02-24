@@ -1,0 +1,9 @@
+#grid_holder {}
+
+table.grid tr {line-height: 10px}
+table.grid tr td {width: 10px}
+
+.control {margin-top: 12px; padding: 12px; }
+
+td.live {background-color: black}
+td.dead {background-color: white}

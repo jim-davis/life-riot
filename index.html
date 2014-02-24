@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>Conway's game of Life in Javascript</title>
+	<link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+	<h1>Conway's Game of Life, in Javascript</h1>
+	<p>
+	  <a href='help.html' target='_new'>the rules, and how to use this</a>
+	</p>
+	<div id='grid_holder'>
+	</div>
+
+	<div class='control'>
+	  <div>
+		<input type='button' id='step' value='Step' />
+		<input type='button' id='run' value='Run'/>
+		<label><span>generation:</span><input id='count' value='0' /></label>
+	  </div>
+	  <div>
+		<label>
+		  <span> framerate:</span><input name='framerate' value='100' />  milliseconds
+		</label>
+	  </div>
+	  <div>
+		<input type='Button' value='Clear'/>
+	  </div>
+
+	  <div>
+		<label>Rows: <input name='nrows' size='3' /></label>
+		<label>Columns: <input name='ncols' size='3' /></label>
+		<input type='Button' value='Resize' />
+	  </div>
+	</div>
+
+	<p>
+	  <a href='about.html' target='_new'>about the implementation</a>
+	</p>
+<script src="dist/jquery.min.js"></script>
+<script src="dist/main.js"></script>
+<script>
+life({r: 20, c:20});
+</script>
+</body>
+</html>

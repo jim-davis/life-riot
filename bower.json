@@ -1,0 +1,19 @@
+{
+  "name": "life-riot",
+  "version": "0.0.1",
+  "homepage": "http://jamesrdavis.org/hacks/life",
+  "authors": [ "Jim Davis"],
+  "description": "Conway's Game of Life, Javascript, using Riot",
+  "main": "index.html",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components"
+  ],
+  "dependencies": {
+    "jquery": "~1.10.2",
+    "riotjs": "latest"
+  }
+
+}

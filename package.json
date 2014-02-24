@@ -1,0 +1,19 @@
+{
+  "name": "life-riot",
+  "description": "Conway's Game of Life",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jim-davis/life-riot"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://opensource.org/licenses/mit-license.php"
+    }
+  ],
+  "devDependencies": {
+    "shelljs": "latest"
+  }
+
+}
