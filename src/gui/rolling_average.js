@@ -15,13 +15,13 @@ function RollingAverage (conf) {
 RollingAverage.prototype.clear = function () {
 	this.points = [];
 	this.points.length = this.nPoints;
-	this.i = -1;
+	this.i = 0;
 	this.self.trigger("clear");
 };
 
 RollingAverage.prototype.add = function (v) {
 	this.points[this.i++] = v;
-	if (this.i == this.nPoints) {this.i = -1;}
+	if (this.i == this.nPoints) {this.i = 0;}
 	if  (this.isValid()) {
 		var avg = this.mean();
 		this.self.trigger("average", this.mean());
@@ -38,6 +38,11 @@ RollingAverage.prototype.mean = function () {
 
 
 RollingAverage.prototype.isValid = function () {
-	return this.points.findIndex(function (v) {return v === undefined;}) === -1;
+	for (var ii = 0; ii < this.points.length; ii++) {
+		if (typeof this.points[ii] == "undefined") {
+			return false;
+		}
+	}
+	return true;
 };
 

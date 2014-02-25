@@ -1,6 +1,5 @@
-
-// a board for the cellular automata game Life.
-
+// A board for the cellular automata game Life.
+// 
 // constructor
 // r is number of rows, c number of columns
 // has two arrays, one for current state (cells), one for next state
@@ -11,28 +10,19 @@
 //  toggleCell
 //  step
 //  run
+//  resize
 //
 // messages (events)
 //  before:run
 //  after:run
 //  step (stepCounter)
 //  cell (r, c, state)
+//  resize (r, c);
 //
-function Board (conf) {
-	// make a two-d grid
-	function makeGrid (r, c) {
-		var a = [];
-		a.length = r;
-		for (var i = 0; i < r; i++) {
-			a[i] = [];
-			a[i].length = c;
-			for (var j = 0; j < c; j++) {
-				a[i][j] = 0;
-			}
-		}
-		return a;
-	}
+// This implementation is constructed such that it could be extended to implement
+// other rules than Conway's Life.
 
+function Board (conf) {
 	this.self = $.observable(this);  // riotjs
 	$.extend(this.self, conf);       // riotjs
 	this.nRows = conf.r;
@@ -43,6 +33,22 @@ function Board (conf) {
 	this.running = false;
 }
 
+// public
+Board.prototype.resize = function (r, c) {
+	this.nRows = r;
+	this.nColumns = c;
+	this.initialize();
+	this.self.trigger("resize", r, c);
+};
+
+// protected
+Board.prototype.initialize = function () {
+	this.cells = makeGrid(this.nRows, this.nColumns);
+	this.next = makeGrid(this.nRows, this.nColumns);
+	this.stepCounter = 0;
+	this.self.trigger("step", this.stepCounter);
+};
+	
 // public 
 // toggle state of cell
 Board.prototype.toggleCell = function (r, c) {
@@ -159,5 +165,20 @@ Board.prototype.clear = function () {
 	}
 };
 
-
+// we need this to make Board accessible outside the scope
 top.Board = Board;
+
+// make a two-d grid
+function makeGrid (r, c) {
+	var a = [];
+	a.length = r;
+	for (var i = 0; i < r; i++) {
+		a[i] = [];
+		a[i].length = c;
+		for (var j = 0; j < c; j++) {
+			a[i][j] = 0;
+		}
+	}
+	return a;
+}
+

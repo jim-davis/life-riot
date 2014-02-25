@@ -1,3 +1,4 @@
+
 // register a callback for after the board object is created
 life(function (board) {
 
@@ -20,15 +21,23 @@ life(function (board) {
 		return s;
 	}
 
-	// Draw the table in the holder
-	$("#grid_holder").html(makeTable(board.nRows, board.nColumns));
+	function draw_grid () {
 
-	// jquery event: clicking a cell toggles state.
-	$("#board").on("click", "td", function toggleCell (e) {
-		var col = $(this).parent().children().index($(this));
-		var row = $(this).parent().parent().children().index($(this).parent());
-		board.toggleCell(row, col);
-	});
+		// Draw the table in the holder
+		$("#grid_holder").html(makeTable(board.nRows, board.nColumns));
+
+		// jquery event: clicking a cell toggles state.
+		$("#board").on("click", "td", function toggleCell (e) {
+			var col = $(this).parent().children().index($(this));
+			var row = $(this).parent().parent().children().index($(this).parent());
+			board.toggleCell(row, col);
+		});
+	}
+
+	draw_grid();
+	$("#framerate").val("");
+	$("#nrows").val(board.nRows);
+	$("#ncols").val(board.nColumns);
 
 	// riot event: when a cell changes state
 	board.on("cell", function (r, c, s) {
@@ -82,11 +91,24 @@ life(function (board) {
 		$("#framerate").val((1000 / mean).toFixed(2));
 	});
 
-	$("#clear").on("click", function () {
+	$("#clear").on("click", function (e) {
 		if (board.running) {
 			board.stop();
 		}
 		board.clear();
+	});
+
+	$("#resize").on("click", function (e) {
+		if (board.running) {
+			board.stop();
+		}
+		if ($("#ncols").val() > 0 && $("#nrows").val() > 0) {
+			board.resize(Number($("#nrows").val()), Number($("#ncols").val()));
+		}
+	});
+
+	board.on("resize", function (r, c) {
+		draw_grid();
 	});
 
 });
