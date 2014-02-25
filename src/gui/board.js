@@ -82,4 +82,11 @@ life(function (board) {
 		$("#framerate").val((1000 / mean).toFixed(2));
 	});
 
+	$("#clear").on("click", function () {
+		if (board.running) {
+			board.stop();
+		}
+		board.clear();
+	});
+
 });

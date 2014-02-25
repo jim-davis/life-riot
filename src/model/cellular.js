@@ -1,21 +1,23 @@
+
 // a board for the cellular automata game Life.
 
 // constructor
 // r is number of rows, c number of columns
 // has two arrays, one for current state (cells), one for next state
 // cell state is 0 for dead and 1 for alive.
-
+//
 // methods (public)
 //  setCell
+//  toggleCell
 //  step
 //  run
-
+//
 // messages (events)
 //  before:run
 //  after:run
 //  step (stepCounter)
-//  clear
 //  cell (r, c, state)
+//
 function Board (conf) {
 	// make a two-d grid
 	function makeGrid (r, c) {
@@ -152,10 +154,9 @@ Board.prototype.isAlive = function (r, c) {
 Board.prototype.clear = function () {
 	for (var i = 0; i < this.nRows; i++) {
 		for (var j = 0; j < this.nColumns; j++) {
-			this.cells[i][j] = 0;
+			this.setCell(i, j, 0);
 		}
 	}
-	this.self.trigger("clear");
 };
 
 
