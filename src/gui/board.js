@@ -1,8 +1,12 @@
 // register a callback for after the board object is created
 life(function (board) {
 
+	var lastStartTime = null;
+	var rollingAverage = new RollingAverage({nPoints: 3});
+
+	// Display the grid as an HTML table.  (It might well be faster to use a Canvas?)
+
 	// create the HTML that displays the grid.
-	// It might well be faster to use a Canvas.
 	function makeTable (r, c) {
 		var s = "<table class='grid' id='board' border='1' cellpadding='0' cellspacing='0' bordercolor='#DDDDDD'>";
 		for (var i = 0; i < r; i++) {
@@ -16,7 +20,7 @@ life(function (board) {
 		return s;
 	}
 
-	// draw the table
+	// Draw the table in the holder
 	$("#grid_holder").html(makeTable(board.nRows, board.nColumns));
 
 	// jquery event: clicking a cell toggles state.
@@ -46,6 +50,12 @@ life(function (board) {
 	// riot event: a step is done
 	board.on("step", function (n) {
 		$("#count").val(n);
+		if (board.running) {
+			if (lastStartTime) {
+				rollingAverage.add(new Date() - lastStartTime);
+			}
+			lastStartTime = new Date();
+		}
 	});
 
 	// jquery event, clicked on Run/Stop button
@@ -53,16 +63,23 @@ life(function (board) {
 		if (board.running) {
 			board.stop();
 		} else {
+			rollingAverage.clear();
+			lastStartTime = new Date();
 			board.run();
 		}
 	});
 
 	board.on("before:run", function () {
 		$("#run").val("Stop");
+		rollingAverage.clear();
 	});
 
 	board.on("after:run", function () {
 		$("#run").val("Run");
+	});
+
+	rollingAverage.on("average", function (mean) {
+		$("#framerate").val((1000 / mean).toFixed(2));
 	});
 
 });
